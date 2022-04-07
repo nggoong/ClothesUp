@@ -1,0 +1,22 @@
+drop database if exists clothesup;
+
+create database clothesup
+default character set utf8
+collate utf8_general_ci;
+
+use clothesup
+
+set names euckr;
+
+create table member(
+id int(4) not null,
+user_id varchar(20) not null,
+user_nickname varchar(10) not null,
+user_birth date not null,
+user_password varchar(10) not null,
+Primary key(id)
+);
+
+
+insert into member values (0, "nggoong", "옷입는사람", "1997-08-28", "1234");
+insert into member values (1, "apro_xo", "옷좋아하는사람", "1997-09-14", "12345");

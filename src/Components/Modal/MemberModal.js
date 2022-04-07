@@ -1,10 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import Empty from '../Empty';
 import { ModalContext } from '../../Context/ModalProvider';
+import { signUp, getmember } from '../../API/api';
 
 export const SignUp = ()=> {
-    
+    useEffect(()=> {
+        getmember().then((res)=> console.log(res));
+    }, [])
 
     return(
         <>

@@ -9,8 +9,14 @@
 
 ## skill stacks🎇
 
-1. React
+1. React(hooks)
 
 2. context API
 
 3. styled-components
+
+4. nodeJS, nodemon
+
+5. axios
+
+6. mariaDB(mysql)
