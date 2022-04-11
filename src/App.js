@@ -5,6 +5,7 @@ import Modal from './Components/Modal/Modal';
 import {SignUp, Login} from './Components/Modal/MemberModal';
 import { ModalContext } from './Context/ModalProvider';
 import Home from './Components/HomeComponent/Home';
+import { Switch, Route, Redirect, useHistory} from 'react-router-dom';
 
 function App() {
   const ModalStore = useContext(ModalContext);
@@ -17,8 +18,10 @@ function App() {
 
       <ContentWrapper>
           <Content>
-            {/* react-router-dom */}
-            <Home/>
+            <Switch>
+              <Route exact path="/" render={()=> <Home/>}></Route>
+              <Route render={()=><Redirect to='/'/>}/>
+            </Switch>
           </Content>
       </ContentWrapper>
 
