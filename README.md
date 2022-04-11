@@ -11,7 +11,7 @@
 
 1. React(hooks)
 
-2. context API
+2. context API + useReducer
 
 3. styled-components
 
