@@ -4,11 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ModalProvider from './Context/ModalProvider';
+import LoginProvider from './Context/LoginProvider';
+import { Login } from './Components/Modal/MemberModal';
 
 ReactDOM.render(
+  <LoginProvider>
   <ModalProvider>
     <App />
-    </ModalProvider>,
+    </ModalProvider>
+    </LoginProvider>,
   document.getElementById('root')
 );
 

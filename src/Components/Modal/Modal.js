@@ -8,6 +8,7 @@ const Modal = ({ children }) => {
     const clickModalToggle = (e) => {
         if(e.target.classList.contains('modal-blur')) {
             ModalStore.actions.contextDispatch({type:'TOGGLE_MODAL'});
+            ModalStore.actions.contextDispatch({type:'SET_DEFAULT_INPUT'});
         }
     }
 

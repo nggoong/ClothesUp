@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from './Components/Header';
 import styled from 'styled-components';
 import Modal from './Components/Modal/Modal';
@@ -8,6 +8,7 @@ import Home from './Components/HomeComponent/Home';
 
 function App() {
   const ModalStore = useContext(ModalContext);
+
 
   return (
       <AppContainer>

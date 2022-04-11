@@ -1,19 +1,30 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ModalContext } from '../Context/ModalProvider';
+import { LoginContext } from '../Context/LoginProvider';
 
 const Header = () => {
+
     const ModalStore = useContext(ModalContext);
+    const LoginStore = useContext(LoginContext);
 
     const btnClickHandler=(e)=> {
         ModalStore.actions.contextDispatch({type:'TOGGLE_MODAL'});
         if(e.target.classList.contains('btn-login')) {
-            ModalStore.actions.contextDispatch({type:'ISLOGIN', isRight:true});
+            if(LoginStore.state.data.isLogin) {
+                LoginStore.actions.contextDispatch({type:'LOGOUT'});
+                ModalStore.actions.contextDispatch({type:'TOGGLE_MODAL'});
+            }
+            else {
+                ModalStore.actions.contextDispatch({type:'ISLOGIN', isRight:true});
+            }
+            
         }
         else if(e.target.classList.contains('btn-signup')) {
             ModalStore.actions.contextDispatch({type:'ISLOGIN', isRight:false});
         }
     }
+
 
     return(
         <>
@@ -24,7 +35,7 @@ const Header = () => {
                 </div>
                 <div className='btns' onClick={btnClickHandler}>
                     <div className='btn btn-login'>
-                        로그인
+                        {LoginStore.state.data.isLogin? '로그아웃' : '로그인'}
                     </div>
                     <div className='btn btn-signup'>
                         회원가입
