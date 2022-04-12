@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ModalContext } from '../Context/ModalProvider';
 import { LoginContext } from '../Context/LoginProvider';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
 
@@ -31,7 +32,7 @@ const Header = () => {
         <HeaderWrapper>
             <HeaderContents>
                 <div className='logo'>
-                    <h1>ClothesUp</h1>
+                    <h1><Link to='/'>ClothesUp</Link></h1>
                 </div>
                 <div className='btns' onClick={btnClickHandler}>
                     <div className='btn btn-login'>
@@ -44,6 +45,10 @@ const Header = () => {
             </HeaderContents>
             <SearchArea className='search-area'>
                 <div className='search-content'>
+                <MoreBtnsWrapper>
+                    <MoreLink><Link to={'/ClothesPostings'}>옷</Link></MoreLink>
+                    <MoreLink><Link to={'/CoordinationPostings'}>코디</Link></MoreLink>
+                </MoreBtnsWrapper>
                 <SearchDiv>
                     <div className='option'>
                         <button>내용</button>
@@ -88,8 +93,12 @@ const HeaderContents = styled.div`
     h1 {
         margin:0;
         padding:0;
-        color:#fafafa;
         user-select:none;
+        a {
+            text-decoration:none;
+            color:#fafafa;
+        }
+        
     }
     .btns {
         display:flex;
@@ -156,4 +165,26 @@ const SearchDiv = styled.div`
         }
     }
     
+`
+
+const MoreBtnsWrapper = styled.div`
+    width:20%;
+    margin-right:auto;
+    // background:red;
+    height:100%;
+    display:flex;
+    align-items:center;
+`
+
+const MoreLink = styled.p`
+    width:20%;
+    font-weight:bold;
+    a {
+        text-decoration:none;
+        color:black;
+
+        &:hover, &:active {
+            color: #f44336;
+        }
+    }
 `

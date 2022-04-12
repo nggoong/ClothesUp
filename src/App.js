@@ -5,7 +5,10 @@ import Modal from './Components/Modal/Modal';
 import {SignUp, Login} from './Components/Modal/MemberModal';
 import { ModalContext } from './Context/ModalProvider';
 import Home from './Components/HomeComponent/Home';
+import ClothesPostings from './Components/Posting/ClothesPostings';
+import CoordinationPostings from './Components/Posting/CoordinationPostings';
 import { Switch, Route, Redirect, useHistory} from 'react-router-dom';
+import Posting from './Components/Posting/Posting';
 
 function App() {
   const ModalStore = useContext(ModalContext);
@@ -19,7 +22,10 @@ function App() {
       <ContentWrapper>
           <Content>
             <Switch>
-              <Route exact path="/" render={()=> <Home/>}></Route>
+              <Route exact path="/" render={()=> <Home/>}/>
+              <Route exact path="/ClothesPostings" render={()=> <ClothesPostings/>}/>
+              <Route exact path="/CoordinationPostings" render={()=> <CoordinationPostings/>}/>
+              <Route path="/CoordinationPostings/posting" render={()=> <Posting/>}/>
               <Route render={()=><Redirect to='/'/>}/>
             </Switch>
           </Content>
@@ -39,16 +45,17 @@ const AppContainer = styled.div`
 `
 
 const ContentWrapper = styled.div`
-  background:blue;
   width:100vw;
   padding-top:140px;
   display:flex;
   justify-content:center;
-  height:50%;
+  background:blue;
+  
 `
 
 const Content = styled.div`
   width:100%;
   max-width:1100px;
+  // height:50vh;
   background:red;
 `
