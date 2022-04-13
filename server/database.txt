@@ -20,3 +20,34 @@ Primary key(id)
 
 insert into member values (null, "nggoong", "옷입는사람", "1997-08-28", "1234");
 insert into member values (null, "apro_xo", "옷좋아하는사람", "1997-09-14", "12345");
+
+
+
+create table clothespost(
+    id int(4) auto_increment,
+    user_nickname varchar(20) not null,
+    posting_title varchar(100) not null,
+    posting_contents varchar(200) not null,
+    posting_hashtag varchar(200) not null,
+    image varchar(1024) not null,
+    posting_time timestamp default now(),
+    Primary key(id)
+);
+
+
+
+create table clothescomment (
+    id int(4) auto_increment,
+    posting_id int(4) not null,
+    user_nickname varchar(20) not null,
+    comment_contents varchar(200) not null,
+    Primary key(id)
+);
+
+create table codicomment (
+    id int(4) auto_increment,
+    posting_id int(4) not null,
+    user_nickname varchar(20) not null,
+    comment_contents varchar(200) not null,
+    Primary key(id)
+);
