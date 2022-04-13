@@ -49,7 +49,7 @@ const ContentWrapper = styled.div`
   padding-top:140px;
   display:flex;
   justify-content:center;
-  background:blue;
+  // background:blue;
   
 `
 
@@ -57,5 +57,5 @@ const Content = styled.div`
   width:100%;
   max-width:1100px;
   // height:50vh;
-  background:red;
+  // background:red;
 `
