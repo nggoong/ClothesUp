@@ -5,7 +5,8 @@ const LOGOUT = 'LOGOUT';
 
 const initData = {
     isLogin:false,
-    id: ''
+    id: '',
+    nickname:''
 }
 
 export const LoginContext = createContext();
@@ -13,10 +14,10 @@ export const LoginContext = createContext();
 const LoginReducer = (state, action) => {
     switch(action.type) {
         case LOGOUT:
-            return {...state, isLogin:false, id:''};
+            return {...state, isLogin:false, id:'', nickname:''};
 
         case LOGIN:
-            return {...state, isLogin:true, id:action.id};
+            return {...state, isLogin:true, id:action.id, nickname:action.nickname};
 
         default:
             return state;
