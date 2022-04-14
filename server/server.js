@@ -52,12 +52,39 @@ const connection = mariadb.createConnection({
   // 로그인 요청
   app.get('/api/member/login/:id', (req, res)=> {
       let sql = `select user_password from member where user_id='${req.params.id}';`;
-      // let sql = 'select * from member';
-
-
       connection.query(sql,
         (err, results, fields)=> {
           if(err) throw err;
           res.send(results);
       })
   })
+
+
+const multer = require('multer');
+
+// 업로드 폴더 설정(사용자의 파일이 저장되는 폴더)
+const upload = multer({dest: './upload'});
+app.use('/image', express.static('./upload')) // upload폴더에서 정적 파일 제공, image 가상 폴더와 바인딩
+
+app.post('/api/posting/clothes-post', upload.single('image'), (req, res) => {
+    let sql = 'insert into clothespost values (null, ?, ?, ?, ?, ?, null)';
+    let nickname = req.body.nickname;
+    let title = req.body.title;
+    let contents = req.body.contents;
+    let hashtag = req.body.hashtag;
+    let image = '/image/' + req.file.filename;
+    let params = [nickname, title, contents, hashtag, image];
+
+    console.log(req.body);
+  
+    connection.query(sql, params,
+        (err, rows, fields) => {
+            if(err) throw err;
+            res.send({message:"전송은 되었다"});
+        })
+  })
+
+
+//   app.get('/api/posting/clothes', (req, res) => {
+      
+//   })
