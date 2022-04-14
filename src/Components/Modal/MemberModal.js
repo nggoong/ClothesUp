@@ -103,7 +103,7 @@ export const Login = () => {
             if(!res.data.length) alert('존재하지 않는 아이디입니다.');
             else if(res.data.length) {
                 if(res.data[0].user_password === loginInput.password) {
-                    LoginStore.actions.contextDispatch({type:'LOGIN', id:loginInput});
+                    LoginStore.actions.contextDispatch({type:'LOGIN', id:loginInput.id, nickname:'tempnickanme'});
                     alert('login완료');
                     ModalStore.actions.contextDispatch({type:'TOGGLE_MODAL'});
                 }

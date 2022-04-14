@@ -10,5 +10,9 @@ const login = (loginInput) => {
     return axios.get(url, loginInput);
 }
 
+const clothesPostPosting = (PostingInput) => {
+    let url = '/api/posting/clothes-post';
+    return axios.post(url, PostingInput);
+}
 
-export {signUp, login};
+export {signUp, login, clothesPostPosting};

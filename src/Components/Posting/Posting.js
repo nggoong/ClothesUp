@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import styled from 'styled-components';
+import { LoginContext } from '../../Context/LoginProvider';
+import { clothesPostPosting } from '../../API/api';
 
 export const HashTagBox = ({ text }) => {
-
-
+    
     return(
         <>
             <TagBox>
@@ -37,22 +38,21 @@ const TagBox = styled.div`
 
 
 const Posting = () => {
-
+    const LoginStore = useContext(LoginContext);
     const imgRef = useRef();
-    
     const [inputs, setInputs] = useState({
+        title:'',
         contentText:'',
-        filename:'',
-        hashTag:'',
+        file:null,
+        hashtag:'',
     })
-
     const tmpHashtag = useRef([]);
 
     const keyUpHandler = (e) => {
         if(e.keyCode === 13) {
             if(e.target.value === '') return; 
             let value = `#${e.target.value.replace(/[ ]/g, '')}`;
-            setInputs((inputs) => ({...inputs, hashTag:inputs.hashTag+=value}));
+            setInputs((inputs) => ({...inputs, hashtag:inputs.hashtag+=value}));
             tmpHashtag.current.push(value);
             e.target.value = '';
         }
@@ -61,17 +61,46 @@ const Posting = () => {
     const setThumbnail = (e) => {
         let files = e.target.files;
         if(files && files[0]) {
+            setInputs((inputs)=>({...inputs, file:files[0]}));
+            console.log(inputs);
             let reader = new FileReader();
             let current = imgRef.current;
             
     
             reader.onload = (e)=> {
-                console.log('hello');
                 current.setAttribute('src', e.target.result);
             }
             reader.readAsDataURL(files[0]);
         }
        
+    }
+
+    const textChangeHandler = (e) => {
+        setInputs((inputs)=>({...inputs, [e.target.name]:e.target.value}));
+    }
+
+    const postingHandler = () => {
+        const formData = new FormData();
+        formData.append('nickname', LoginStore.state.data.nickname);
+        formData.append('title', inputs.title);
+        formData.append('contents', inputs.contentText);
+        formData.append('hashtag', inputs.hashtag);
+        formData.append('image', inputs.file);
+
+        clothesPostPosting(formData)
+        .then((res)=>{
+            alert('posting완료');
+        })
+        .catch((e)=>{
+            console.log(e);
+        })
+
+        setInputs(
+            {title:'',
+            contentText:'',
+            file:null,
+            hashtag:'',}
+        )
     }
 
     return(
@@ -83,24 +112,25 @@ const Posting = () => {
                     </div>
                 </ImageViewer>
                 <Inputs>
-                <ContentTextarea>
-                    <textarea maxLength='100' name='contentText'/>
-                </ContentTextarea>
+                <Contentarea>
+                    <input type='text' onChange={textChangeHandler} name='title' value={inputs.title}></input>
+                    <textarea maxLength='100' name='contentText' value={inputs.contentText} onChange={textChangeHandler} placeholder='100자 이하로 작성해주세요 '/>
+                </Contentarea>
                 <HashImageBtnWrapper>
                     <div className='file-input-area'>
-                        <input type='file' name='fileName' onChange={setThumbnail}></input>
+                        <input type='file' name='file' onChange={setThumbnail}></input>
                     </div>
                     <div className='hashtag-area'>
                         <div className='hashtag-viewer'>
-                            {tmpHashtag.current.map((tag)=>(<HashTagBox text={tag}></HashTagBox>))}
+                            {tmpHashtag.current.map((tag, index)=>(<HashTagBox text={tag} key={index}></HashTagBox>))}
                         </div>
                         <div className='hashtag-input-area'>
-                            <input name='hashTag'onKeyUp={keyUpHandler} placeholder='해시태그 입력 후 엔터' ></input>
+                            <input name='hashtag'onKeyUp={keyUpHandler} placeholder='해시태그 입력 후 엔터' ></input>
                         </div>
 
                     </div>
                     <div className='button-area'>
-                    <Button>포스트</Button>
+                    <Button onClick={postingHandler}>포스트</Button>
                     <Button>나가기</Button>
                     </div>
                 </HashImageBtnWrapper>
@@ -146,14 +176,14 @@ const Inputs = styled.div`
     border:2px solid black;
 `
 
-const ContentTextarea = styled.div`
+const Contentarea = styled.div`
     background:yellow;
     height:100%;
     width:75%;
 
     textarea {
         width:100%;
-        height:100%;
+        height:85%;
         box-sizing:border-box;
         padding:1%;
         font-size:20px;
@@ -164,6 +194,17 @@ const ContentTextarea = styled.div`
     textarea:focus {
         outline:none;
     }
+    input {
+        height:15%;
+        box-sizing:border-box;
+        margin:0;
+        border:0;
+        border-bottom:1px solid black;
+        border-right:1px solid black;
+        width:100%;
+        font-size:18px;
+        
+    }
 `
 
 const HashImageBtnWrapper = styled.div`
@@ -172,7 +213,7 @@ const HashImageBtnWrapper = styled.div`
     display:flex;
     flex-direction: column;
     justify-content:space-between;
-    
+    background:#eeeeee;
 
     .file-input-area{
         border:1px solid black;
@@ -223,6 +264,6 @@ const Button = styled.button`
     &:hover {
         background: #304ffe;
     }
-
 `
+
 
