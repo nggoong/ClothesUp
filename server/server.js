@@ -74,8 +74,6 @@ app.post('/api/posting/clothes-post', upload.single('image'), (req, res) => {
     let hashtag = req.body.hashtag;
     let image = '/image/' + req.file.filename;
     let params = [nickname, title, contents, hashtag, image];
-
-    console.log(req.body);
   
     connection.query(sql, params,
         (err, rows, fields) => {
@@ -85,6 +83,10 @@ app.post('/api/posting/clothes-post', upload.single('image'), (req, res) => {
   })
 
 
-//   app.get('/api/posting/clothes', (req, res) => {
-      
-//   })
+  // 12개씩 옷 포스팅 불러오기
+  app.get('/api/posting/clothes-post/count/:num', (req, res)=> {
+      let sql = `select * from clothespost order by id desc limit ${req.params.num}, 12`;
+      connection.query(sql, (err, results, fields)=> {
+          res.send(results);
+      })
+  })
