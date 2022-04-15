@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ModalContext } from '../Context/ModalProvider';
 import { LoginContext } from '../Context/LoginProvider';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const Header = () => {
 
+    const history = useHistory();
     const ModalStore = useContext(ModalContext);
     const LoginStore = useContext(LoginContext);
 
@@ -15,6 +16,8 @@ const Header = () => {
             if(LoginStore.state.data.isLogin) {
                 LoginStore.actions.contextDispatch({type:'LOGOUT'});
                 ModalStore.actions.contextDispatch({type:'TOGGLE_MODAL'});
+                alert('로그아웃 되었습니다.');
+                history.replace('/');
             }
             else {
                 ModalStore.actions.contextDispatch({type:'ISLOGIN', isRight:true});
@@ -23,6 +26,16 @@ const Header = () => {
         }
         else if(e.target.classList.contains('btn-signup')) {
             ModalStore.actions.contextDispatch({type:'ISLOGIN', isRight:false});
+        }
+    }
+
+    const moreBtnsClickHandler = (e) => {
+        if(!LoginStore.state.data.isLogin) {
+            alert('로그인 해주세요');
+        }
+        else {
+            if(e.target.classList.contains('clothes')) history.push('/ClothesPostings');
+            else if(e.target.classList.contains('codi')) history.push('/CoordinationPostings');
         }
     }
 
@@ -45,9 +58,9 @@ const Header = () => {
             </HeaderContents>
             <SearchArea className='search-area'>
                 <div className='search-content'>
-                <MoreBtnsWrapper>
-                    <MoreLink><Link to={'/ClothesPostings'}>옷</Link></MoreLink>
-                    <MoreLink><Link to={'/CoordinationPostings'}>코디</Link></MoreLink>
+                <MoreBtnsWrapper onClick={moreBtnsClickHandler}>
+                    <MoreLink className='clothes'>옷</MoreLink>
+                    <MoreLink className='codi'>코디</MoreLink>
                 </MoreBtnsWrapper>
                 <SearchDiv>
                     <div className='option'>
@@ -179,12 +192,12 @@ const MoreBtnsWrapper = styled.div`
 const MoreLink = styled.p`
     width:20%;
     font-weight:bold;
-    a {
-        text-decoration:none;
-        color:black;
+    
+    cursor:pointer;
+    color:black;
 
-        &:hover, &:active {
-            color: #f44336;
-        }
+    &:hover, &:active {
+        color: #f44336;
     }
+    
 `

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { LoginContext } from '../../Context/LoginProvider';
 import { clothesPostPosting } from '../../API/api';
@@ -15,7 +16,7 @@ export const HashTagBox = ({ text }) => {
 }
 
 const TagBox = styled.div`
-    display:flex;
+    display:inline-flex;
     align-items:center;
     height:30%;
     background:white;
@@ -38,6 +39,7 @@ const TagBox = styled.div`
 
 
 const Posting = () => {
+    const history = useHistory();
     const LoginStore = useContext(LoginContext);
     const imgRef = useRef();
     const [inputs, setInputs] = useState({
@@ -89,7 +91,9 @@ const Posting = () => {
 
         clothesPostPosting(formData)
         .then((res)=>{
-            alert('posting완료');
+            alert('포스팅 성공!');
+            history.push('/ClothesPostings');
+            
         })
         .catch((e)=>{
             console.log(e);
@@ -102,6 +106,13 @@ const Posting = () => {
             hashtag:'',}
         )
     }
+
+    useEffect(()=>{
+        if(!LoginStore.state.data.isLogin){
+            alert('로그인 후 이용해주세요!');
+            history.push('/');
+        }
+    }, []);
 
     return(
         <>

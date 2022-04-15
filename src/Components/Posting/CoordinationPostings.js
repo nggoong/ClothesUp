@@ -5,7 +5,7 @@ const CoordinationPostings = () => {
 
     return(
         <>
-            coordination
+            
         </>
     )
 }
