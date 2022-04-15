@@ -7,8 +7,9 @@ import { ModalContext } from './Context/ModalProvider';
 import Home from './Components/HomeComponent/Home';
 import ClothesPostings from './Components/Posting/ClothesPostings';
 import CoordinationPostings from './Components/Posting/CoordinationPostings';
-import { Switch, Route, Redirect, useHistory} from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Posting from './Components/Posting/Posting';
+import PostingItems from './Components/Posting/PostingItems';
 
 function App() {
   const ModalStore = useContext(ModalContext);
@@ -18,14 +19,13 @@ function App() {
       <AppContainer>
       <Header></Header>
       {ModalStore.state.data.isShow ? <Modal>{ModalStore.state.data.isLoginBtn ? <Login/> : <SignUp/>}</Modal> : null}
-
       <ContentWrapper>
           <Content>
             <Switch>
               <Route exact path="/" render={()=> <Home/>}/>
-              <Route exact path="/ClothesPostings" render={()=> <ClothesPostings/>}/>
-              <Route exact path="/CoordinationPostings" render={()=> <CoordinationPostings/>}/>
-              <Route path="/CoordinationPostings/posting" render={()=> <Posting/>}/>
+              <Route exact path="/ClothesPostings" render={()=> <ClothesPostings type={'clothes'}></ClothesPostings>}/>
+              <Route exact path="/CoordinationPostings" render={()=> <CoordinationPostings></CoordinationPostings>}/>
+              <Route path="/ClothesPostings/posting" render={()=> <Posting/>}/>
               <Route render={()=><Redirect to='/'/>}/>
             </Switch>
           </Content>
@@ -49,7 +49,6 @@ const ContentWrapper = styled.div`
   padding-top:140px;
   display:flex;
   justify-content:center;
-  // background:blue;
   
 `
 
@@ -57,5 +56,4 @@ const Content = styled.div`
   width:100%;
   max-width:1100px;
   // height:50vh;
-  // background:red;
 `
