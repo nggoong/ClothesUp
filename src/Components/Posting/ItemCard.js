@@ -52,16 +52,14 @@ const IDArea = styled.div`
     }
 `
 const TitleArea = styled.div`
+    height:10%;
     display:flex;
     align-items:center;
-    height:10%;
-    // white-space: nowrap;
-    // overflow: hidden;
-    // text-overflow: [...];
+    
     
 
     h1 {
-        font-size:16px;
+        font-size:15px;
         margin:0;
     }
 `

@@ -3,10 +3,15 @@ import React, { createContext, useReducer } from 'react';
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 
+// const initData = {
+//     isLogin:false,
+//     id: '',
+//     nickname:''
+// }
 const initData = {
-    isLogin:false,
-    id: '',
-    nickname:''
+    isLogin:true,
+    id: 'nggoong',
+    nickname:'tempnickname'
 }
 
 export const LoginContext = createContext();
