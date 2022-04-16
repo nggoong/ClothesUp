@@ -12,15 +12,14 @@ const ClothesPostings = ( { type } ) => {
     const [isEnd, setIsEnd] = useState(false);
 
     const getMoreData = () => {
-        let temp = Array.from(data);
         if(type === 'clothes') {
             getClothesPost(count.current)
             .then((res)=> {
                 if(!res.data.length) {
                     setIsEnd(true);
+                    return;
                 }
-                temp = temp.concat(res.data);
-                setDatas(temp);
+                setDatas((data)=>data.concat(res.data))
             })
         }
         count.current+=12;
