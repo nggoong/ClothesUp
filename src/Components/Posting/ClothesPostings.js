@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import PostingItems from './PostingItems';
 import { getClothesPost } from '../../API/api';
@@ -7,19 +7,34 @@ import { getClothesPost } from '../../API/api';
 
 const ClothesPostings = ( { type } ) => {
 
-    const count = useRef(1);
+    const count = useRef(0);
     const [ data, setDatas ] = useState([]);
+    const [isEnd, setIsEnd] = useState(false);
+
+    const getMoreData = () => {
+        let temp = Array.from(data);
+        if(type === 'clothes') {
+            getClothesPost(count.current)
+            .then((res)=> {
+                if(!res.data.length) {
+                    setIsEnd(true);
+                }
+                temp = temp.concat(res.data);
+                setDatas(temp);
+            })
+        }
+        count.current+=12;
+    }
 
     useEffect(()=> {
         if(type === 'clothes') {
             getClothesPost(count.current)
             .then((res) => {
-                console.log(res);
                 count.current+=12;
                 setDatas(res.data);
             })
         }
-    }, [])
+    }, []);
 
     return(
         <>
@@ -35,7 +50,9 @@ const ClothesPostings = ( { type } ) => {
                 <PostingContents>
                     <PostingItems data={data}/>
                 </PostingContents>
-                
+                <MoreBtnArea>
+                    <MoreButton isEnd={isEnd} onClick={getMoreData}><p>MORE +</p></MoreButton>
+                </MoreBtnArea>
             </PostingsWrapper>
             
         </>
@@ -59,6 +76,7 @@ const PostingHeader = styled.div`
     display:flex;
     align-items:center;
     justify-content:space-between;
+    margin-bottom:1vh;
 
 `
 const PostingTitle = styled.h1`
@@ -77,4 +95,33 @@ const PostingLink = styled.p`
 
 const PostingContents = styled.div`
     width:100%;
+`
+const MoreBtnArea = styled.div`
+    display:flex;
+    justify-content:center;
+    margin-bottom:10px;
+    
+`
+
+const MoreButton = styled.button`
+    background:black;
+    height:8vh;
+    width:50vh;
+    color:white;
+    border-radius:50px;
+    cursor:pointer;
+
+    ${props => {
+        if(props.isEnd) {
+            return css`
+                display:none;
+            `
+        }
+    }}
+
+    p{
+        padding:0;
+        margin:0;
+        font-size:20px;
+    }
 `

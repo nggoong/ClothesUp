@@ -1,8 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ItemCard = ({ data }) =>{
+const remakeTime = (timeStr) => {
+    let result;
+    result = timeStr.replace(/[A-Za-z]/g, ' ').slice(0,19);
+    return result;
+}
 
+const ItemCard = ({ data }) =>{
 
     return(
         <>
@@ -17,8 +22,12 @@ const ItemCard = ({ data }) =>{
                     <h1>{data.posting_title}</h1>
                 </TitleArea>
                 <HashTagArea>
-
+                {remakeTime(data.posting_time)}
                 </HashTagArea>
+                <TimeArea>
+                {remakeTime(data.posting_time)}
+                </TimeArea>
+
             </Card>
         </>
     )
@@ -53,11 +62,12 @@ const IDArea = styled.div`
 `
 const TitleArea = styled.div`
     height:10%;
-    display:flex;
-    align-items:center;
     
+    display:-webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
     
-
     h1 {
         font-size:15px;
         margin:0;
@@ -65,8 +75,15 @@ const TitleArea = styled.div`
 `
 
 const HashTagArea = styled.div`
-    background:black;
-    height:18%;
+    // background:black;
+    height:10%;
+`
+const TimeArea = styled.div`
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    height:8%;
+    font-size:12px;
 `
 
 export default ItemCard;
