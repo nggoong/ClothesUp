@@ -34,6 +34,17 @@ create table clothespost(
     Primary key(id)
 );
 
+create table codipost(
+    id int(4) auto_increment,
+    user_nickname varchar(20) not null,
+    posting_title varchar(100) not null,
+    posting_contents varchar(200) not null,
+    posting_hashtag varchar(200) not null,
+    image varchar(1024) not null,
+    posting_time timestamp default now(),
+    Primary key(id)
+);
+
 
 
 create table clothescomment (

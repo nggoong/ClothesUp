@@ -90,3 +90,27 @@ app.post('/api/posting/clothes-post', upload.single('image'), (req, res) => {
           res.send(results);
       })
   })
+
+app.post('/api/posting/codi-post', upload.single('image'), (req, res) =>{
+    let sql = 'insert into codipost values (null, ?, ?, ?, ?, ?, null)';
+    let nickname = req.body.nickname;
+    let title = req.body.title;
+    let contents = req.body.contents;
+    let hashtag = req.body.hashtag;
+    let image = '/image/' + req.file.filename;
+    let params = [nickname, title, contents, hashtag, image];
+    
+    connection.query(sql, params,
+        (err, rows, fields) => {
+            if(err) throw err;
+            res.send({message:"전송은 되었다."});
+        })
+})
+
+// 12개씩 코디 포스팅 불러오기
+app.get('/api/posting/codi-post/count/:num', (req, res)=>{
+    let sql = `select * from codipost order by id desc limit ${req.params.num}, 12`;
+    connection.query(sql, (err, results, fields)=> {
+        res.send(results);
+    }) 
+})
