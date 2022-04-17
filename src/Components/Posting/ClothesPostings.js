@@ -22,6 +22,16 @@ const ClothesPostings = ( { type } ) => {
                 setDatas((data)=>data.concat(res.data))
             })
         }
+        else if(type === 'codi') {
+            getCodiPost(count.current)
+            .then((res)=> {
+                if(!res.data.length) {
+                    setIsEnd(true);
+                    return;
+                }
+                setDatas((data)=>data.concat(res.data));
+            })
+        }
         count.current+=12;
     }
 

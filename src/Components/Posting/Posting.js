@@ -104,7 +104,7 @@ const Posting = () => {
             codiPostPosting(formData)
             .then((res)=>{
                 alert('포스팅 성공!');
-                history.push('/CoordiationPostings');
+                history.push('/CoordinationPostings');
             })
             .catch((e)=> {
                 console.log(e);
