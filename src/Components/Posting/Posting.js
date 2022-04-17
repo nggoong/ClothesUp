@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { LoginContext } from '../../Context/LoginProvider';
-import { clothesPostPosting } from '../../API/api';
+import { codiPostPosting, clothesPostPosting } from '../../API/api';
 
 export const HashTagBox = ({ text }) => {
     
@@ -40,6 +40,7 @@ const TagBox = styled.div`
 
 const Posting = () => {
     const history = useHistory();
+    const location = useLocation();
     const LoginStore = useContext(LoginContext);
     const imgRef = useRef();
     const [inputs, setInputs] = useState({
@@ -89,15 +90,29 @@ const Posting = () => {
         formData.append('hashtag', inputs.hashtag);
         formData.append('image', inputs.file);
 
-        clothesPostPosting(formData)
-        .then((res)=>{
+        if(location.pathname === '/ClothesPostings/posting') {
+            clothesPostPosting(formData)
+            .then((res)=>{
             alert('포스팅 성공!');
             history.push('/ClothesPostings');
-            
-        })
-        .catch((e)=>{
-            console.log(e);
-        })
+            })
+            .catch((e)=>{
+                console.log(e);
+            })
+        }
+        else if(location.pathname === '/CoordinationPostings/posting') {
+            codiPostPosting(formData)
+            .then((res)=>{
+                alert('포스팅 성공!');
+                history.push('/CoordiationPostings');
+            })
+            .catch((e)=> {
+                console.log(e);
+            })
+        }
+        
+        
+        
 
         setInputs(
             {title:'',

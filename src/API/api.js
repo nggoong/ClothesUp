@@ -25,4 +25,4 @@ const getClothesPost = (num) => {
     return axios.get(url);
 }
 
-export {signUp, login, clothesPostPosting, getClothesPost};
+export {signUp, login, clothesPostPosting, codiPostPosting, getClothesPost};

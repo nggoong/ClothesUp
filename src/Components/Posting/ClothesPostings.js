@@ -33,17 +33,24 @@ const ClothesPostings = ( { type } ) => {
                 setDatas(res.data);
             })
         }
-    }, []);
+        else if(type==='codi') {
+            alert('codi');
+        }
+
+        return(()=> {
+            count.current = 0;
+        })
+    }, [type]);
 
     return(
         <>
             <PostingsWrapper>
                 <PostingHeader>
                     <PostingTitle>
-                        CLOTHES
+                        {type==='clothes'? 'ITEM' : 'CODI'}
                     </PostingTitle>
                     <PostingLink>
-                        <Link to='/ClothesPostings/posting'>글쓰기 ⋙</Link>
+                    {type==='clothes'? <Link to='/ClothesPostings/posting'>글쓰기 ⋙</Link> : <Link to='/CoordinationPostings/posting'>글쓰기 ⋙</Link>} 
                     </PostingLink>
                 </PostingHeader>
                 <PostingContents>

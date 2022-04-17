@@ -6,10 +6,8 @@ import {SignUp, Login} from './Components/Modal/MemberModal';
 import { ModalContext } from './Context/ModalProvider';
 import Home from './Components/HomeComponent/Home';
 import ClothesPostings from './Components/Posting/ClothesPostings';
-import CoordinationPostings from './Components/Posting/CoordinationPostings';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Posting from './Components/Posting/Posting';
-import PostingItems from './Components/Posting/PostingItems';
 
 function App() {
   const ModalStore = useContext(ModalContext);
@@ -24,8 +22,9 @@ function App() {
             <Switch>
               <Route exact path="/" render={()=> <Home/>}/>
               <Route exact path="/ClothesPostings" render={()=> <ClothesPostings type={'clothes'}></ClothesPostings>}/>
-              <Route exact path="/CoordinationPostings" render={()=> <CoordinationPostings></CoordinationPostings>}/>
+              <Route exact path="/CoordinationPostings" render={()=> <ClothesPostings type={'codi'}></ClothesPostings>}/>
               <Route path="/ClothesPostings/posting" render={()=> <Posting/>}/>
+              <Route path="/CoordinationPostings/posting" render={()=> <Posting/>}/>
               <Route render={()=><Redirect to='/'/>}/>
             </Switch>
           </Content>
