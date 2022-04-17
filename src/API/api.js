@@ -20,9 +20,15 @@ const codiPostPosting = (PostingInput) => {
     return axios.post(url, PostingInput);
 }
 
+
 const getClothesPost = (num) => {
     let url = `/api/posting/clothes-post/count/${num}`;
     return axios.get(url);
 }
 
-export {signUp, login, clothesPostPosting, codiPostPosting, getClothesPost};
+const getCodiPost = (num)=>{
+    let url = `/api/posting/codi-post/count/${num}`;
+    return axios.get(url);
+}
+
+export {signUp, login, clothesPostPosting, codiPostPosting, getClothesPost, getCodiPost};

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import PostingItems from './PostingItems';
-import { getClothesPost } from '../../API/api';
+import { getClothesPost, getCodiPost } from '../../API/api';
 
 
 const ClothesPostings = ( { type } ) => {
@@ -29,14 +29,16 @@ const ClothesPostings = ( { type } ) => {
         if(type === 'clothes') {
             getClothesPost(count.current)
             .then((res) => {
-                count.current+=12;
                 setDatas(res.data);
             })
         }
         else if(type==='codi') {
-            alert('codi');
+            getCodiPost(count.current)
+            .then((res)=> {
+                setDatas(res.data);
+            })
         }
-
+        count.current+=12;
         return(()=> {
             count.current = 0;
         })
