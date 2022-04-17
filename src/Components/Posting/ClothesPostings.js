@@ -5,6 +5,10 @@ import PostingItems from './PostingItems';
 import { getClothesPost, getCodiPost } from '../../API/api';
 
 
+const moveScrollTop = () => {
+    document.querySelector('.App').scrollTo(0, 0);
+}
+
 const ClothesPostings = ( { type } ) => {
 
     const count = useRef(0);
@@ -51,7 +55,12 @@ const ClothesPostings = ( { type } ) => {
         count.current+=12;
         return(()=> {
             count.current = 0;
+            setIsEnd(false);
         })
+    }, [type]);
+
+    useEffect(()=> {
+        moveScrollTop();
     }, [type]);
 
     return(
