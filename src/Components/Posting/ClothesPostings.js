@@ -109,7 +109,6 @@ const PostingHeader = styled.div`
     align-items:center;
     justify-content:space-between;
     margin-bottom:1vh;
-
 `
 const PostingTitle = styled.h1`
     color:black;
@@ -117,7 +116,6 @@ const PostingTitle = styled.h1`
 `
 const PostingLink = styled.p`
     margin:0;
-
     a {
         text-decoration:none;
         font-weight:bold;
@@ -142,7 +140,6 @@ const MoreButton = styled.button`
     color:white;
     border-radius:50px;
     cursor:pointer;
-
     ${props => {
         if(props.notDisplayed) {
             return css`
@@ -150,7 +147,6 @@ const MoreButton = styled.button`
             `
         }
     }}
-
     p{
         padding:0;
         margin:0;

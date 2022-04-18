@@ -1,12 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
 import ItemCard from './ItemCard';
 
 const PostingItems = ({ data }) => {
-    const location = useLocation();
-
-
     useEffect(()=> {
 
     }, [])

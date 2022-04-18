@@ -3,7 +3,7 @@ const fs = require('fs');
 const express = require('express');
 const mariadb = require('mariadb/callback');
 const bodyParser = require('body-parser');
-const { resolveSoa } = require('dns');
+// const { resolveSoa } = require('dns');
 const app = express();
 
 const port = process.env.PORT || 5000;
@@ -46,9 +46,6 @@ const connection = mariadb.createConnection({
   })
 
 
-
-
-
   // 로그인 요청
   app.get('/api/member/login/:id', (req, res)=> {
       let sql = `select user_password from member where user_id='${req.params.id}';`;
@@ -84,8 +81,8 @@ app.post('/api/posting/clothes-post', upload.single('image'), (req, res) => {
 
 
   // 12개씩 옷 포스팅 불러오기
-  app.get('/api/posting/clothes-post/count/:num', (req, res)=> {
-      let sql = `select * from clothespost order by id desc limit ${req.params.num}, 12`;
+  app.get('/api/posting/clothes-post/count/:from', (req, res)=> {
+      let sql = `select * from clothespost order by id desc limit ${req.params.from}, 12`;
       connection.query(sql, (err, results, fields)=> {
           res.send(results);
       })
@@ -108,8 +105,8 @@ app.post('/api/posting/codi-post', upload.single('image'), (req, res) =>{
 })
 
 // 12개씩 코디 포스팅 불러오기
-app.get('/api/posting/codi-post/count/:num', (req, res)=>{
-    let sql = `select * from codipost order by id desc limit ${req.params.num}, 12`;
+app.get('/api/posting/codi-post/count/:from', (req, res)=>{
+    let sql = `select * from codipost order by id desc limit ${req.params.from}, 12`;
     connection.query(sql, (err, results, fields)=> {
         res.send(results);
     }) 

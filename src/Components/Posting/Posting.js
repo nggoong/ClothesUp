@@ -25,7 +25,6 @@ const TagBox = styled.div`
     margin:0 3%;
     box-sizing:border-box;
     padding:10px;
-
     
     
     p {
@@ -180,14 +179,12 @@ const ImageViewer = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
-
     .Image {
         width:50%;
         max-width:calc(110px*0.7)px;
         height:100%;
         background:white;
     }
-
     img {
         width:100%;
         height:100%;
@@ -206,7 +203,6 @@ const Contentarea = styled.div`
     background:yellow;
     height:100%;
     width:75%;
-
     textarea {
         width:100%;
         height:85%;
@@ -240,7 +236,6 @@ const HashImageBtnWrapper = styled.div`
     flex-direction: column;
     justify-content:space-between;
     background:#eeeeee;
-
     .file-input-area{
         border:1px solid black;
     }
@@ -251,7 +246,6 @@ const HashImageBtnWrapper = styled.div`
         // justify-content:space-between;
         height:50%;
         background:lightgray;
-
         .hashtag-viewer {
             display:flex;
             align-items:center;
@@ -264,7 +258,6 @@ const HashImageBtnWrapper = styled.div`
             width:100%;
             height:50%;
             background:yello;
-
             input {
                 box-sizing:border-box;
                 width:100%;
@@ -286,10 +279,7 @@ const Button = styled.button`
     color:white;
     font-weight:bold;
     border:none;
-
     &:hover {
         background: #304ffe;
     }
 `
-
-
