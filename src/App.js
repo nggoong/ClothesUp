@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import Header from './Components/Header';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Modal from './Components/Modal/Modal';
 import {SignUp, Login} from './Components/Modal/MemberModal';
 import { ModalContext } from './Context/ModalProvider';
@@ -30,13 +30,27 @@ function App() {
     AppContainer.addEventListener('scroll', ScrollHandler);
   }, [])
 
+  const onScrollBtnClickHandler = (e) => {
+    let AppContainer = app.current;
+    if(e.target.classList.contains('up-btn')) {
+      AppContainer.scrollTo(0, 0);
+    }
+    else if(e.target.classList.contains('down-btn')) {
+      let YOffset = AppContainer.scrollHeight - window.innerHeight;
+      AppContainer.scrollTo(0, YOffset);
+    }
+  }
+
 
   return (
       <AppContainer className='App' ref={app}>
       <Header></Header>
       {ModalStore.state.data.isShow ? <Modal>{ModalStore.state.data.isLoginBtn ? <Login/> : <SignUp/>}</Modal> : null}
       <ContentWrapper>
-        <ScrollBtnWrapper isDisplay={controllerShow}></ScrollBtnWrapper>
+        <ScrollBtnWrapper isDisplay={controllerShow} onClick={onScrollBtnClickHandler}>
+          <ScrollButton className='up-btn'>∧</ScrollButton>
+          <ScrollButton className='down-btn'>∨</ScrollButton>
+        </ScrollBtnWrapper>
           <Content>
             <Switch>
               <Route exact path="/" render={()=> <Home/>}/>
@@ -81,9 +95,23 @@ const ScrollBtnWrapper = styled.div`
   position:fixed;
   width:5vh;
   height:15vh;
-  background:blue;
-  right:5%;
-  bottom:50px;
+  right:4vw;
+  bottom:7vh;
   transition: all 0.5s;
-  opacity:${props => props.isDisplay ? '1' : '0'};
+  ${(props)=> {
+    if(!props.isDisplay) {
+      return css`
+        visibility:hidden;
+        opacity:0;
+      `
+    }
+  }}
+`
+
+const ScrollButton = styled.button`
+  width:100%;
+  height:50%;
+  font-size:20px;
+  font-weight:bold;
+  
 `
