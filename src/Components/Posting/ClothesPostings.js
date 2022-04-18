@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import PostingItems from './PostingItems';
 import { getClothesPost, getCodiPost } from '../../API/api';
 
@@ -13,14 +13,15 @@ const ClothesPostings = ( { type } ) => {
 
     const count = useRef(0);
     const [ data, setDatas ] = useState([]);
-    const [isEnd, setIsEnd] = useState(false);
+    const [notDisplayed, setNotDisplayed] = useState(false);
+    const location = useLocation();
 
     const getMoreData = () => {
         if(type === 'clothes') {
             getClothesPost(count.current)
             .then((res)=> {
                 if(!res.data.length) {
-                    setIsEnd(true);
+                    setNotDisplayed(true);
                     return;
                 }
                 setDatas((data)=>data.concat(res.data))
@@ -30,7 +31,7 @@ const ClothesPostings = ( { type } ) => {
             getCodiPost(count.current)
             .then((res)=> {
                 if(!res.data.length) {
-                    setIsEnd(true);
+                    setNotDisplayed(true);
                     return;
                 }
                 setDatas((data)=>data.concat(res.data));
@@ -55,13 +56,17 @@ const ClothesPostings = ( { type } ) => {
         count.current+=12;
         return(()=> {
             count.current = 0;
-            setIsEnd(false);
+            setNotDisplayed(false);
         })
     }, [type]);
 
     useEffect(()=> {
         moveScrollTop();
     }, [type]);
+
+    useEffect(()=> {
+        if(location.pathname === '/') setNotDisplayed(true);
+    }, [location.pathname]);
 
     return(
         <>
@@ -78,7 +83,7 @@ const ClothesPostings = ( { type } ) => {
                     <PostingItems data={data}/>
                 </PostingContents>
                 <MoreBtnArea>
-                    <MoreButton isEnd={isEnd} onClick={getMoreData}><p>MORE +</p></MoreButton>
+                    <MoreButton notDisplayed={notDisplayed} onClick={getMoreData}><p>MORE +</p></MoreButton>
                 </MoreBtnArea>
             </PostingsWrapper>
             
@@ -139,7 +144,7 @@ const MoreButton = styled.button`
     cursor:pointer;
 
     ${props => {
-        if(props.isEnd) {
+        if(props.notDisplayed) {
             return css`
                 display:none;
             `
