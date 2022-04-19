@@ -81,8 +81,8 @@ app.post('/api/posting/clothes-post', upload.single('image'), (req, res) => {
 
 
   // 12개씩 옷 포스팅 불러오기
-  app.get('/api/posting/clothes-post/count/:from', (req, res)=> {
-      let sql = `select * from clothespost order by id desc limit ${req.params.from}, 12`;
+  app.get('/api/posting/clothes-post/count/:from/:to', (req, res)=> {
+      let sql = `select * from clothespost order by id desc limit ${req.params.from}, ${req.params.to}`;
       connection.query(sql, (err, results, fields)=> {
           res.send(results);
       })
@@ -105,8 +105,8 @@ app.post('/api/posting/codi-post', upload.single('image'), (req, res) =>{
 })
 
 // 12개씩 코디 포스팅 불러오기
-app.get('/api/posting/codi-post/count/:from', (req, res)=>{
-    let sql = `select * from codipost order by id desc limit ${req.params.from}, 12`;
+app.get('/api/posting/codi-post/count/:from/:to', (req, res)=>{
+    let sql = `select * from codipost order by id desc limit ${req.params.from}, ${req.params.to}`;
     connection.query(sql, (err, results, fields)=> {
         res.send(results);
     }) 
