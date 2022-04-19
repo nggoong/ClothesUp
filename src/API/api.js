@@ -21,13 +21,13 @@ const codiPostPosting = (PostingInput) => {
 }
 
 
-const getClothesPost = (num) => {
-    let url = `/api/posting/clothes-post/count/${num}`;
+const getClothesPost = (from, to) => {
+    let url = `/api/posting/clothes-post/count/${from}/${to}`;
     return axios.get(url);
 }
 
-const getCodiPost = (num)=>{
-    let url = `/api/posting/codi-post/count/${num}`;
+const getCodiPost = (from, to)=>{
+    let url = `/api/posting/codi-post/count/${from}/${to}`;
     return axios.get(url);
 }
 

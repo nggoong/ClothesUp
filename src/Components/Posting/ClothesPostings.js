@@ -12,13 +12,15 @@ const moveScrollTop = () => {
 const ClothesPostings = ( { type } ) => {
 
     const count = useRef(0);
+    const dist = useRef();
     const [ data, setDatas ] = useState([]);
     const [notDisplayed, setNotDisplayed] = useState(false);
     const location = useLocation();
 
     const getMoreData = () => {
+        
         if(type === 'clothes') {
-            getClothesPost(count.current)
+            getClothesPost(count.current, dist.current)
             .then((res)=> {
                 if(!res.data.length) {
                     setNotDisplayed(true);
@@ -28,7 +30,7 @@ const ClothesPostings = ( { type } ) => {
             })
         }
         else if(type === 'codi') {
-            getCodiPost(count.current)
+            getCodiPost(count.current, dist.current)
             .then((res)=> {
                 if(!res.data.length) {
                     setNotDisplayed(true);
@@ -37,18 +39,20 @@ const ClothesPostings = ( { type } ) => {
                 setDatas((data)=>data.concat(res.data));
             })
         }
-        count.current+=12;
+        count.current+=dist.current;
     }
 
     useEffect(()=> {
+        if(location.pathname === '/') dist.current = 8;
+        else dist.current = 12;
         if(type === 'clothes') {
-            getClothesPost(count.current)
+            getClothesPost(count.current, dist.current)
             .then((res) => {
                 setDatas(res.data);
             })
         }
         else if(type==='codi') {
-            getCodiPost(count.current)
+            getCodiPost(count.current, dist.current)
             .then((res)=> {
                 setDatas(res.data);
             })
@@ -65,7 +69,13 @@ const ClothesPostings = ( { type } ) => {
     }, [type]);
 
     useEffect(()=> {
-        if(location.pathname === '/') setNotDisplayed(true);
+        if(location.pathname === '/') {
+            dist.current = 8;
+            setNotDisplayed(true);
+        }
+        else {
+            dist.current = 12;
+        } 
     }, [location.pathname]);
 
     return(
