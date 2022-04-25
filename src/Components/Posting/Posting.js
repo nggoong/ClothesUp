@@ -122,7 +122,7 @@ const Posting = () => {
     }
 
     useEffect(()=>{
-        if(!LoginStore.state.data.isLogin){
+        if(!LoginStore.state.data.isLogin) {
             alert('로그인 후 이용해주세요!');
             history.push('/');
         }

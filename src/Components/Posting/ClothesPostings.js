@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
 import PostingItems from './PostingItems';
 import { getClothesPost, getCodiPost } from '../../API/api';
+import PostingHeader from './PostingHeader';
 
 
 const moveScrollTop = () => {
@@ -81,14 +82,15 @@ const ClothesPostings = ( { type } ) => {
     return(
         <>
             <PostingsWrapper>
-                <PostingHeader>
+                {/* <PostingHeader>
                     <PostingTitle>
                         {type==='clothes'? 'ITEM' : 'CODI'}
                     </PostingTitle>
                     <PostingLink>
                     {type==='clothes'? <Link to='/ClothesPostings/posting'>글쓰기 ⋙</Link> : <Link to='/CoordinationPostings/posting'>글쓰기 ⋙</Link>} 
                     </PostingLink>
-                </PostingHeader>
+                </PostingHeader> */}
+                <PostingHeader type={type}></PostingHeader>
                 <PostingContents>
                     <PostingItems data={data}/>
                 </PostingContents>
@@ -112,14 +114,14 @@ const PostingsWrapper = styled.div`
     // background:red;
 `
 
-const PostingHeader = styled.div`
-    width:100%;
-    height:50px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:1vh;
-`
+// const PostingHeader = styled.div`
+//     width:100%;
+//     height:50px;
+//     display:flex;
+//     align-items:center;
+//     justify-content:space-between;
+//     margin-bottom:1vh;
+// `
 const PostingTitle = styled.h1`
     color:black;
     margin:0;
