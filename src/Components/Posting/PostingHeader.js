@@ -43,7 +43,7 @@ const PostingHeader = ({ type }) => {
                 })
             }
         }
-    }, [location.pathname, type, datas])
+    }, [location.pathname, type])
 
     return(
         <>
