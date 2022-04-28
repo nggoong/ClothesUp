@@ -21,7 +21,8 @@ const IMG = styled.img`
 
 const Carousel = () => {
 
-    const ImageList = ['/CarouselImage/clothesupImage1.png', '/CarouselImage/clothesupImage2.png']
+    const ImageList = ['/CarouselImage/clothesupImage1.png', '/CarouselImage/clothesupImage2.png',
+    '/CarouselImage/clothesupImage3.png'];
     const TOTAL_SLIDES = ImageList.length - 1;
     const [currentSlide, setCurrentSlide] = useState(0);
     const slideRef = useRef(null);
@@ -53,6 +54,7 @@ const Carousel = () => {
                 </CarouselViewer>
                 <MoveBtn onClick={NextClickHandler}>{'>'}</MoveBtn>
             </CarouselWrapper>
+            <CarouselIndexArea><p>{`${currentSlide + 1} / ${TOTAL_SLIDES + 1}`}</p></CarouselIndexArea>
         </>
     )
 }
@@ -65,6 +67,7 @@ const CarouselWrapper = styled.div`
     width:100%;
     // overflow:hidden;
     justify-content:space-between;
+    user-select:none;
 `
 
 const MoveBtn = styled.div`
@@ -88,5 +91,15 @@ const CarouselSlider = styled.div`
     height:100%;
     display:flex;
     margin: 0 auto;
-    max-width:65vw;
+    width:65vw;
+`
+
+const CarouselIndexArea = styled.div`
+    width:100%;
+    text-align:center;
+    user-select:none;
+    
+    p{
+        font-size:1.5vw;
+    }
 `

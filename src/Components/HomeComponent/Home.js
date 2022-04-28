@@ -26,7 +26,7 @@ export default Home;
 const AdArea = styled.div`
     height:65vh;
     width:100%;
-    margin-bottom:5vh;
+    margin-bottom:10vh;
 `
 
 const PostingsArea = styled.div`
