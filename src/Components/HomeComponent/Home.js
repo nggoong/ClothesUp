@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import ClothesPostings from '../Posting/ClothesPostings';
+import Carousel from './Carousel/Carousel';
 
 const Home = () => {
 
     return(
         <>
             <AdArea>
+                <Carousel></Carousel>
             </AdArea>
             <PostingsArea>
                 <ClothesPostings type={'clothes'}></ClothesPostings>
@@ -22,9 +24,8 @@ const Home = () => {
 export default Home;
 
 const AdArea = styled.div`
-    display:flex;
     height:65vh;
-    background:black;
+    width:100%;
     margin-bottom:5vh;
 `
 

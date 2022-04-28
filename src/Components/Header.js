@@ -91,6 +91,7 @@ const HeaderWrapper = styled.div`
     width:100%;
     background:black;
     position:fixed;
+    z-index:100;
     top:0;
 `
 
