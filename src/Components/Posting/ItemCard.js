@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const remakeTime = (timeStr) => {
     let result;
@@ -11,16 +11,14 @@ const ItemCard = ({ data }) =>{
     if(data === '') {
         return(
             <>
-                <Card>
-                    <p>{data}</p>
-                </Card>
+                <Card/>
             </>
         )
     } 
 
     return(
         <>
-            <Card>
+            <Card notEmpty>
                 <ImageArea>
                     <img alt="image" src={data.image}></img>
                 </ImageArea>
@@ -48,7 +46,13 @@ const Card = styled.div`
     border:1px solid balck;
     margin-bottom:10vh;
     user-select:none;
-    cursor:pointer;
+    ${props => {
+        if(props.notEmpty) {
+            return css`
+            cursor: pointer;
+        `
+        }
+    }}
 `
 
 const ImageArea = styled.div`
