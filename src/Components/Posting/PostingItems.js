@@ -1,16 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ItemCard from './ItemCard';
 
 const PostingItems = ({ data }) => {
-    useEffect(()=> {
+    const [stateData, setStateData] = useState([]);
 
-    }, [])
+    useEffect(()=> {
+        let temp = [];
+        temp = data.slice();
+        let calcCount = temp.length % 4;
+        if(calcCount !== 0) {
+            for(let i = 0; i < calcCount; i++) {
+                temp.push('');
+            }
+        }
+        setStateData(temp);
+        console.log('hello')
+        
+       
+    }, [data])
 
     return(
         <>
             <PostingItemsWrapper>
-               {data.map((value)=>(<ItemCard key={value.id} data={value}></ItemCard>))}
+               {stateData.map((value, index)=>(<ItemCard key={index} id={value===''? '-1' : value.id} data={value}></ItemCard>))}
             </PostingItemsWrapper>
         </>
     )

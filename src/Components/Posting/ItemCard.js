@@ -8,6 +8,15 @@ const remakeTime = (timeStr) => {
 }
 
 const ItemCard = ({ data }) =>{
+    if(data === '') {
+        return(
+            <>
+                <Card>
+                    <p>{data}</p>
+                </Card>
+            </>
+        )
+    } 
 
     return(
         <>
